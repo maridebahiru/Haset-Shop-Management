@@ -75,7 +75,7 @@ export const createFullBackup = async (triggerDownload = true): Promise<BackupDa
 
   const payload: BackupDataPayload = {
     version: '1.0.0',
-    appName: 'BAMBI STORE Management System',
+    appName: 'Shop Management System',
     timestamp: new Date().toISOString(),
     data: {
       products: fetchedData['products'] || [],
@@ -113,7 +113,7 @@ export const downloadBackupFile = (payload: BackupDataPayload) => {
   const a = document.createElement('a');
   const dateStr = new Date().toISOString().split('T')[0];
   a.href = url;
-  a.download = `BAMBI_STORE_Backup_${dateStr}.json`;
+  a.download = `Shop_Management_Backup_${dateStr}.json`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);

@@ -61,9 +61,9 @@ const SignUp = ({ onSwitchToLogin }: SignUpProps) => {
   return (
     <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
       <div className="text-center mb-8">
-        <img src={bambiLogo} alt="BAMBI STORE Logo" className="w-16 h-16 mx-auto mb-3 object-contain rounded-xl shadow-sm p-1 bg-slate-50 border border-slate-100" />
+        <img src={bambiLogo} alt="Shop Management Logo" className="w-16 h-16 mx-auto mb-3 object-contain rounded-xl shadow-sm p-1 bg-slate-50 border border-slate-100" />
         <h1 className="text-2xl font-bold text-gray-900">Create Account</h1>
-        <p className="text-xs text-gray-500 mt-1">BAMBI STORE Management System</p>
+        <p className="text-xs text-gray-500 mt-1">Shop Management System</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">

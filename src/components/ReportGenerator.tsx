@@ -211,7 +211,7 @@ const ReportGenerator = () => {
         </head>
         <body>
           <div class="header">
-            <h1>BAMBI STORE</h1>
+            <h1>Shop Management</h1>
             <h2>Sales Report</h2>
           </div>
           <div class="print-date">

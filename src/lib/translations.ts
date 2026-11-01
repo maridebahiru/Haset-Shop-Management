@@ -12,7 +12,7 @@ export const translations: Record<Language, Record<string, string>> = {
     settings: 'Settings',
     receipts: 'Receipts',
     logout: 'Logout',
-    appTitle: 'BAMBI STORE',
+    appTitle: 'Shop Management',
 
     // POS & Sales Interface
     quickSale: 'Quick Sale',
