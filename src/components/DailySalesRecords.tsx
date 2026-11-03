@@ -121,7 +121,7 @@ const DailySalesRecords = () => {
         </head>
         <body>
           <div class="header">
-            <h1>Shop Management</h1>
+            <h1>Haset Shop Management</h1>
             <h2>Daily Sales Records ${dateFilter === 'today' ? "(Today's Sales)" : "(All Records)"}</h2>
           </div>
           <div class="print-date">

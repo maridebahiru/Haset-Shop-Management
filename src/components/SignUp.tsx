@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../lib/firebase';
-import { User, Lock, Mail, UserPlus } from 'lucide-react';
-import bambiLogo from '../asset/bambi.png';
+import { User, Lock, Mail, UserPlus, Store } from 'lucide-react';
 
 interface SignUpProps {
   onSwitchToLogin: () => void;
@@ -61,9 +60,11 @@ const SignUp = ({ onSwitchToLogin }: SignUpProps) => {
   return (
     <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
       <div className="text-center mb-8">
-        <img src={bambiLogo} alt="Shop Management Logo" className="w-16 h-16 mx-auto mb-3 object-contain rounded-xl shadow-sm p-1 bg-slate-50 border border-slate-100" />
+        <div className="w-16 h-16 mx-auto mb-3 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-md">
+          <Store size={32} />
+        </div>
         <h1 className="text-2xl font-bold text-gray-900">Create Account</h1>
-        <p className="text-xs text-gray-500 mt-1">Shop Management System</p>
+        <p className="text-xs text-gray-500 mt-1">Haset Shop Management System</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">

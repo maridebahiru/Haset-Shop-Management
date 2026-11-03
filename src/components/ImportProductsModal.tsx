@@ -239,26 +239,6 @@ const ImportProductsModal: React.FC<ImportProductsModalProps> = ({ isOpen, onClo
           updatedAt: new Date()
         });
 
-        // Create Accounts Payable if stock > 0
-        if (row.stock > 0) {
-          const dueDate = new Date();
-          dueDate.setDate(dueDate.getDate() + 30);
-
-          await addDoc(collection(db, 'payables'), {
-            supplierName: row.supplierName || 'Excel Import Supplier',
-            invoiceNumber: row.invoiceNumber || `IMP-${Date.now().toString().slice(-6)}`,
-            amountOwed: row.purchasePrice * row.stock,
-            dueDate: dueDate.toISOString().split('T')[0],
-            status: 'Unpaid',
-            productId: productRef.id,
-            productName: row.name,
-            quantityAdded: row.stock,
-            unitCost: row.purchasePrice,
-            createdAt: new Date(),
-            paidAt: null
-          });
-        }
-
         successCount++;
       }
 

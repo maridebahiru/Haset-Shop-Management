@@ -147,35 +147,12 @@ const EditProductModal = ({ isOpen, onClose, onProductUpdated, product }: EditPr
         updatedAt: new Date()
       });
 
-      // Auto-create payable if stock is increased
-      if (formData.stock > product.stock) {
-        const addedQty = formData.stock - product.stock;
-        const dueDate = new Date();
-        dueDate.setDate(dueDate.getDate() + 30);
-
-        await addDoc(collection(db, 'payables'), {
-          supplierName: 'Restock Supplier',
-          invoiceNumber: `RESTOCK-${Date.now().toString().slice(-6)}`,
-          amountOwed: formData.purchasePrice * addedQty,
-          dueDate: dueDate.toISOString().split('T')[0],
-          status: 'Unpaid',
-          productId: product.id,
-          productName: formData.name.trim(),
-          quantityAdded: addedQty,
-          unitCost: formData.purchasePrice,
-          createdAt: new Date(),
-          paidAt: null
-        });
-      }
-
       onClose();
       onProductUpdated();
 
       toast({
         title: "Success",
-        description: formData.stock > product.stock
-          ? `Product updated & payable for +${formData.stock - product.stock} units generated!`
-          : "Product updated successfully!"
+        description: "Product updated successfully!"
       });
 
     } catch (error) {

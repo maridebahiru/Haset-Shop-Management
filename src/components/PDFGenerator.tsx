@@ -45,7 +45,7 @@ export const generateSaleReceipt = (saleData: SaleData, userProfile: any) => {
   
   // Store info
   doc.setFontSize(12);
-  doc.text('Shop Management', 20, 40);
+  doc.text('Haset Shop Management', 20, 40);
   doc.text('Retail & Inventory Store', 20, 50);
   
   // Receipt details

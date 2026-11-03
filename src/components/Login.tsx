@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { LogIn, User, Lock } from 'lucide-react';
+import { LogIn, User, Lock, Store } from 'lucide-react';
 import SignUp from './SignUp';
 
 
 const Login = () => {
-  const [email, setEmail] = useState('maramawitdereje93@gmail.com');
-  const [password, setPassword] = useState('maramawitdereje93@gmail.com');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
@@ -39,8 +39,10 @@ const Login = () => {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
         <div className="text-center mb-8">
-
-          <h1 className="text-2xl font-bold text-gray-900">Shop Management</h1>
+          <div className="w-16 h-16 mx-auto mb-3 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-md">
+            <Store size={32} />
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900">Haset Shop Management</h1>
           <p className="text-sm text-gray-500 mt-1">Sign in to access your store dashboard</p>
         </div>
 
@@ -57,6 +59,7 @@ const Login = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Enter your email"
+                autoComplete="email"
                 required
               />
             </div>
@@ -74,6 +77,7 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Enter your password"
+                autoComplete="current-password"
                 required
               />
             </div>

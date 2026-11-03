@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Truck, CheckCircle2, Clock, AlertTriangle, Plus, Trash2, Calendar, FileText } from 'lucide-react';
-import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, writeBatch } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { useToast } from '@/hooks/use-toast';
 
@@ -92,6 +92,38 @@ const AccountsPayable: React.FC = () => {
     }
   };
 
+  const handleClearAllPayables = async () => {
+    if (payables.length === 0) return;
+    if (confirm(`Are you sure you want to permanently delete all ${payables.length} accounts payable records?`)) {
+      setLoading(true);
+      try {
+        const snap = await getDocs(collection(db, 'payables'));
+        const docs = snap.docs;
+        const chunkSize = 400;
+        for (let i = 0; i < docs.length; i += chunkSize) {
+          const chunk = docs.slice(i, i + chunkSize);
+          const batch = writeBatch(db);
+          chunk.forEach(d => batch.delete(doc(db, 'payables', d.id)));
+          await batch.commit();
+        }
+        setPayables([]);
+        toast({
+          title: "All Payables Cleared",
+          description: "All accounts payable records have been removed.",
+        });
+      } catch (e) {
+        console.error('Error clearing payables:', e);
+        toast({
+          title: "Error",
+          description: "Failed to clear payables.",
+          variant: "destructive"
+        });
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
   const handleAddPayable = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newPayable.supplierName || newPayable.amountOwed <= 0) {
@@ -163,13 +195,24 @@ const AccountsPayable: React.FC = () => {
           <h3 className="text-lg font-bold text-gray-900 dark:text-white">Accounts Payable (Supplier Bills)</h3>
           <p className="text-xs text-gray-500">Track supplier invoices and stock restock liabilities</p>
         </div>
-        <button
-          onClick={() => setIsAddModalOpen(true)}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors flex items-center justify-center"
-        >
-          <Plus size={16} className="mr-1.5" />
-          Add Supplier Bill
-        </button>
+        <div className="flex items-center gap-2">
+          {payables.length > 0 && (
+            <button
+              onClick={handleClearAllPayables}
+              className="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-sm font-medium px-3 py-2 rounded-lg transition-colors flex items-center justify-center"
+            >
+              <Trash2 size={16} className="mr-1.5" />
+              Clear All Payables
+            </button>
+          )}
+          <button
+            onClick={() => setIsAddModalOpen(true)}
+            className="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors flex items-center justify-center"
+          >
+            <Plus size={16} className="mr-1.5" />
+            Add Supplier Bill
+          </button>
+        </div>
       </div>
 
       {/* KPI Cards */}

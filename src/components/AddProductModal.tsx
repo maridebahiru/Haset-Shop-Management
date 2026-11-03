@@ -141,26 +141,6 @@ const AddProductModal = ({ isOpen, onClose, onProductAdded }: AddProductModalPro
         updatedAt: new Date()
       });
 
-      // Auto-create Accounts Payable record for initial stock
-      if (formData.stock > 0) {
-        const dueDate = new Date();
-        dueDate.setDate(dueDate.getDate() + 30);
-
-        await addDoc(collection(db, 'payables'), {
-          supplierName: formData.supplierName.trim() || 'General Supplier',
-          invoiceNumber: formData.invoiceNumber.trim() || `INV-${Date.now().toString().slice(-6)}`,
-          amountOwed: formData.purchasePrice * formData.stock,
-          dueDate: dueDate.toISOString().split('T')[0],
-          status: 'Unpaid',
-          productId: productRef.id,
-          productName: formData.name.trim(),
-          quantityAdded: formData.stock,
-          unitCost: formData.purchasePrice,
-          createdAt: new Date(),
-          paidAt: null
-        });
-      }
-
       // Reset form
       setFormData({
         code: '',
@@ -179,9 +159,7 @@ const AddProductModal = ({ isOpen, onClose, onProductAdded }: AddProductModalPro
 
       toast({
         title: "Success",
-        description: formData.stock > 0 
-          ? "Product added & payable record generated!" 
-          : "Product added successfully!"
+        description: "Product added successfully!"
       });
 
     } catch (error) {
@@ -332,31 +310,6 @@ const AddProductModal = ({ isOpen, onClose, onProductAdded }: AddProductModalPro
             />
           </div>
 
-          {/* Supplier Info for Payables */}
-          {formData.stock > 0 && (
-            <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 space-y-3">
-              <div className="flex items-center text-xs font-semibold text-slate-700">
-                <Truck size={14} className="mr-1.5 text-blue-600" />
-                Restock Supplier Details (Accounts Payable)
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                <input
-                  type="text"
-                  value={formData.supplierName}
-                  onChange={(e) => setFormData({ ...formData, supplierName: e.target.value })}
-                  placeholder="Supplier Name"
-                  className="w-full px-2.5 py-1.5 text-xs border border-gray-300 rounded bg-white"
-                />
-                <input
-                  type="text"
-                  value={formData.invoiceNumber}
-                  onChange={(e) => setFormData({ ...formData, invoiceNumber: e.target.value })}
-                  placeholder="Invoice #"
-                  className="w-full px-2.5 py-1.5 text-xs border border-gray-300 rounded bg-white"
-                />
-              </div>
-            </div>
-          )}
 
           <div className="text-sm text-gray-600 p-3 bg-gray-50 rounded-lg">
             <strong>Selling Price: birr{(formData.purchasePrice + (formData.purchasePrice * formData.interestPercent / 100)).toFixed(2)}</strong>

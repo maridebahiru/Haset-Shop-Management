@@ -14,11 +14,11 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
-  Globe
+  Globe,
+  Store
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
-import bambiLogo from '../asset/bambi.png';
 
 interface SidebarProps {
   userRole?: 'admin' | 'seller' | string;
@@ -92,14 +92,18 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole, isCollapsed, onToggleCollap
           <div className="flex items-center justify-between mb-8 mt-12 lg:mt-2">
             {!isCollapsed ? (
               <div className="flex items-center gap-3 overflow-hidden">
-                <img src={bambiLogo} alt="Shop Management Logo" className="w-10 h-10 object-contain rounded-lg bg-slate-800 p-1 flex-shrink-0" />
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-md flex-shrink-0">
+                  <Store size={22} />
+                </div>
                 <div className="overflow-hidden">
                   <h1 className="text-base font-bold truncate leading-tight">{t('appTitle')}</h1>
-                  <p className="text-slate-400 text-xs truncate">Shop Management</p>
+                  <p className="text-slate-400 text-xs truncate">Haset Shop Management</p>
                 </div>
               </div>
             ) : (
-              <img src={bambiLogo} alt="Shop Management Logo" className="w-9 h-9 object-contain rounded-lg bg-slate-800 p-1 mx-auto hidden lg:block" />
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-md mx-auto hidden lg:flex">
+                <Store size={20} />
+              </div>
             )}
 
             {/* Desktop Collapse / Expand Toggle Button */}

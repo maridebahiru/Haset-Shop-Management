@@ -142,7 +142,7 @@ const SellerDailySales = () => {
         </head>
         <body>
           <div class="header">
-            <h1>Shop Management</h1>
+            <h1>Haset Shop Management</h1>
             <h2>Daily Sales Report</h2>
             <h3>Seller: ${sellerName}</h3>
           </div>

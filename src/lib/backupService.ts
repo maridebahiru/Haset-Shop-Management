@@ -23,8 +23,8 @@ export interface BackupDataPayload {
   };
 }
 
-const STORAGE_KEY = 'maf_auto_backup_config';
-const SNAPSHOT_KEY = 'maf_latest_backup_snapshot';
+const STORAGE_KEY = 'shop_auto_backup_config';
+const SNAPSHOT_KEY = 'shop_latest_backup_snapshot';
 
 export const DEFAULT_BACKUP_CONFIG: AutoBackupConfig = {
   enabled: true,
@@ -75,7 +75,7 @@ export const createFullBackup = async (triggerDownload = true): Promise<BackupDa
 
   const payload: BackupDataPayload = {
     version: '1.0.0',
-    appName: 'Shop Management System',
+    appName: 'Haset Shop Management System',
     timestamp: new Date().toISOString(),
     data: {
       products: fetchedData['products'] || [],
@@ -113,7 +113,7 @@ export const downloadBackupFile = (payload: BackupDataPayload) => {
   const a = document.createElement('a');
   const dateStr = new Date().toISOString().split('T')[0];
   a.href = url;
-  a.download = `Shop_Management_Backup_${dateStr}.json`;
+  a.download = `Haset_Shop_Management_Backup_${dateStr}.json`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
